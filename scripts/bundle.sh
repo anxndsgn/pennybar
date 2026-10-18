@@ -25,6 +25,14 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin_dir/PennyBar" "$app/Contents/MacOS/PennyBar"
 cp Resources/Info.plist "$app/Contents/Info.plist"
 
+# Release builds stamp the version from the tag (VERSION=1.2.0) and CI run (BUILD_NUMBER).
+if [[ -n "${VERSION:-}" ]]; then
+    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$app/Contents/Info.plist"
+fi
+if [[ -n "${BUILD_NUMBER:-}" ]]; then
+    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$app/Contents/Info.plist"
+fi
+
 # Compile the Icon Composer source into Assets.car (Liquid Glass, with dark/tinted/clear
 # variants) plus AppIcon.icns as the flat fallback. Info.plist names both as AppIcon.
 xcrun actool Resources/AppIcon.icon --compile "$app/Contents/Resources" \

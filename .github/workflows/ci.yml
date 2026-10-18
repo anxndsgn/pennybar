@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Test and build
+    # macOS 26 SDK and an Xcode with Icon Composer support are required.
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Test
+        run: swift test
+
+      - name: Build ad-hoc signed app
+        run: scripts/bundle.sh release
