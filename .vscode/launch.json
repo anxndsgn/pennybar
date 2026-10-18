@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:pennybar}",
+            "name": "Debug PennyBar",
+            "target": "PennyBar",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug PennyBar"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:pennybar}",
+            "name": "Release PennyBar",
+            "target": "PennyBar",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release PennyBar"
+        }
+    ]
+}
