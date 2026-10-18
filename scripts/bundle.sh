@@ -25,6 +25,13 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin_dir/PennyBar" "$app/Contents/MacOS/PennyBar"
 cp Resources/Info.plist "$app/Contents/Info.plist"
 
+# Compile the Icon Composer source into Assets.car (Liquid Glass, with dark/tinted/clear
+# variants) plus AppIcon.icns as the flat fallback. Info.plist names both as AppIcon.
+xcrun actool Resources/AppIcon.icon --compile "$app/Contents/Resources" \
+    --platform macosx --target-device mac --minimum-deployment-target 26.0 \
+    --app-icon AppIcon --output-partial-info-plist /dev/null \
+    --errors --warnings --output-format human-readable-text > /dev/null
+
 # Ad-hoc signature by default so the app launches locally. Each rebuild changes the signature,
 # so macOS may ask once more for Keychain access to saved tokens. Set SIGN_IDENTITY to a
 # Developer ID to sign for distribution (hardened runtime and a secure timestamp, as notarization requires).
